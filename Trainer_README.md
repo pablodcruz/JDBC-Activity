@@ -8,7 +8,7 @@ The main goal of the activity is to teach students how to use a DAO pattern to p
 
 ## Requirements:
 1. Batch has an understanding of the DAO pattern and how it is used to organize the database access code in a JDBC application.
-2. VSCode (click test runner/explorer and click run) or Intellij (click on debugger run) to run tests
+2. Run tests on VSCode or Intellij (click test runner and run on VSCode, open test/java/JdbcTest and run on Intellij)
 
 ## Instructions:
 1. Divide the class into groups of 2-3 students.
