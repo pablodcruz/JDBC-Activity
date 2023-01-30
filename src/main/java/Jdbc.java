@@ -17,7 +17,7 @@ import util.ConnectionUtil;
  *
  * JDBC datatypes to know:
  *  - Connection: Creates an active connection to the database.
- *  - Statement: An object that represents a SQL statement to be executed.
+ *  - Statement/PreparedStatement: An object that represents a SQL statement to be executed.
  *  - ResultSet: An object that represents the virtual table return from a query (Only needed for executing DQL statements)
  *
  * Background:
@@ -30,19 +30,20 @@ import util.ConnectionUtil;
  *      |3      |'Kashmir'          |'Led Zeppelin'         |
  *
  * Assignment: Write JDBC logic in the methods below to achieve the following in our database
- *      - write jdbc logic to create a new song in our songs table
- *      - write jdbc logic to retrieve all songs from songs table
- *      - create a method that with the jdbc logic toretrieve a song from songs table
- *      - create a method that with the jdbc logic to delete a songs 
- *      - create a method that with the jdbc logic to update an entire songs 
- *      - create a method that with the jdbc logic to update a songs artist 
+ *  * NOTE: Check JDBCWalkthrough.md file for DQL and DML examples
+ *      - write JDBC logic to create a new song in our songs table
+ *      - write JDBC logic to retrieve all songs from songs table
+ *      - create a method that with the JDBC logic toretrieve a song from songs table
+ *      - create a method that with the JDBC logic to delete a songs 
+ *      - create a method that with the JDBC logic to update an entire songs 
+ *      - create a method that with the JDBC logic to update a songs artist 
  */
 
 public class Jdbc {
 
-    //write jdbc logic to create a new song in our songs table
+    //write JDBC logic to create a new song in our songs table
     public void createSong(Song song)  {
-        // 1. write jdbc code here
+        // 1. write JDBC code here
         try {
             //retrieve active connection to db
             Connection connection = ConnectionUtil.getConnection();
@@ -62,10 +63,10 @@ public class Jdbc {
         }
     }
 
-    //write jdbc logic to retrieve all songs from songs table
+    //write JDBC logic to retrieve all songs from songs table
     public List<Song> getAllSongs(){
         List<Song> songs = new ArrayList<>();
-        //2. write jdbc code here
+        //2. write JDBC code here
         try{
         Connection connection = ConnectionUtil.getConnection();
         String sql = "select * from songs;";
@@ -82,10 +83,10 @@ public class Jdbc {
         return songs;
     }
 
-    //3. create a method that with the jdbc logic to retrieve a song from songs table using the song id
+    //3. create a method that with the JDBC logic to retrieve a song from songs table using the song id
     public Song getSong(int id){
         Song song = new Song();
-        //3. write jdbc code here
+        //3. write JDBC code here
         try{
             Connection connection = ConnectionUtil.getConnection();
             String sql = "select * from songs where id = ?;";
@@ -102,7 +103,7 @@ public class Jdbc {
         return song;
     }
 
-    //4. create a method that with the jdbc logic to delete a songs, return the number of affected rows 
+    //4. create a method that with the JDBC logic to delete a songs, return the number of affected rows 
     public int deleteSong(int id) {
         int affectedrows = 0;
         try{
@@ -118,7 +119,7 @@ public class Jdbc {
         return affectedrows;
     }
 
-    //5. create a method that with the jdbc logic to update an entire songs, return true if successful.  
+    //5. create a method that with the JDBC logic to update an entire songs, return true if successful.  
     public boolean updateSong(Song song, int id) throws SQLException {
         int numberOfRecordsUpdated = 0;
         try {
@@ -135,7 +136,7 @@ public class Jdbc {
         return numberOfRecordsUpdated == 1;
     }
 
-    //6. create a method that with the jdbc logic to update a songs artist 
+    //6. create a method that with the JDBC logic to update a songs artist 
     public boolean updateSongArtist(String artistName, int songId) throws SQLException {
         int numberOfRecordsUpdated = 0;
         try {
