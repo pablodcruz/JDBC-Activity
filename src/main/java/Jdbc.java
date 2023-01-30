@@ -30,7 +30,7 @@ import util.ConnectionUtil;
  *      |3      |'Kashmir'          |'Led Zeppelin'         |
  *
  * Assignment: Write JDBC logic in the methods below to achieve the following in our database
- *  * NOTE: Check JDBCWalkthrough.md file for DQL and DML examples
+ *  * NOTE: Open JDBCWalkthrough.md file for DQL and DML examples
  *      - write SQL logic to create a new song in our songs table
  *      - write SQL logic to retrieve all songs from songs table
  *      - create a method that with the JDBC logic toretrieve a song from songs table
@@ -85,12 +85,12 @@ public class Jdbc {
         return songs;
     }
 
-    //3. create a method with the JDBC logic to retrieve a song from songs table using the song id
+    //3. create a method  'getSong' with the JDBC logic to retrieve a song from songs table using the song id
 
-    //4. create a method with the JDBC logic to delete a song, return the number of affected rows 
+    //4. create a method 'deleteSong' with the JDBC logic to delete a song, return the number of affected rows 
 
-    //5. create a method with the JDBC logic to update an entire songs, return true if successful.  
+    //5. create a method 'updateSong' with the JDBC logic to update an entire songs, return true if successful.  
 
-    //6. create a method with the JDBC logic to update a songs artist 
+    //6. create a method 'updateSongArtist' with the JDBC logic to update a songs artist 
 
 }
