@@ -25,6 +25,7 @@ public class JdbcTest {
             String sql4 = "INSERT INTO songs (title, artist) VALUES ('Kashmir', 'Led Zeppelin');";
             PreparedStatement ps = connection.prepareStatement(sql + sql2 + sql3 + sql4);
             ps.executeUpdate();
+            System.out.println(jdbc.getAllSongs());
         } catch (SQLException e) {
             System.out.println("dropping table");
         }
@@ -98,5 +99,42 @@ public class JdbcTest {
         }catch (SQLException sqlException){
             sqlException.printStackTrace();
         }
+    }
+    @Test
+    public void deleteSongTest(){
+        int expectedResult = 1; //affected rows
+        int actualResult = jdbc.deleteSong(1);
+        System.out.println(jdbc.getAllSongs());
+        Assert.assertEquals(expectedResult,actualResult);
+    }
+
+    @Test
+    public void updateSongTest(){
+        boolean expectedResult = true; 
+        boolean actualResult = false;
+        Song song = new Song("Led Zeppelin", "Stairway to Heaven");
+        try {
+             actualResult = jdbc.updateSong(song, 1);
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());        
+        }
+        System.out.println(jdbc.getAllSongs());
+        Assert.assertEquals(expectedResult,actualResult);
+    }
+
+    @Test
+    public void updateSongArtistTest(){
+        boolean expectedResult = true; 
+        boolean actualResult = false;
+        try {
+             actualResult = jdbc.updateSongArtist("MJ",
+              1);
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());        
+        }
+        System.out.println(jdbc.getAllSongs());
+        Assert.assertEquals(expectedResult,actualResult);
     }
 }

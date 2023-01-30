@@ -102,12 +102,54 @@ public class Jdbc {
         return song;
     }
 
-    //4. create a method that with the jdbc logic to delete a songs 
+    //4. create a method that with the jdbc logic to delete a songs, return the number of affected rows 
+    public int deleteSong(int id) {
+        int affectedrows = 0;
+        try{
+            Connection connection = ConnectionUtil.getConnection();
+            String sql = "DELETE FROM songs WHERE id = ?";
+            PreparedStatement pstmt = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            pstmt.setInt(1, id);
+            affectedrows = pstmt.executeUpdate();
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        System.out.println(affectedrows);
+        return affectedrows;
+    }
 
-
-    //5. create a method that with the jdbc logic to update an entire songs 
-
+    //5. create a method that with the jdbc logic to update an entire songs, return true if successful.  
+    public boolean updateSong(Song song, int id) throws SQLException {
+        int numberOfRecordsUpdated = 0;
+        try {
+            Connection connection = ConnectionUtil.getConnection();
+            String sql = "UPDATE songs SET title = ?, artist = ? WHERE id = ?";
+            PreparedStatement pstmt = connection.prepareStatement(sql);
+            pstmt.setString(1, song.getTitle());
+            pstmt.setString(2, song.getArtist());
+            pstmt.setInt(3, id);
+            numberOfRecordsUpdated = pstmt.executeUpdate();
+        }catch(SQLException e){
+            System.out.println(e.getMessage());
+        }   
+        return numberOfRecordsUpdated == 1;
+    }
 
     //6. create a method that with the jdbc logic to update a songs artist 
+    public boolean updateSongArtist(String artistName, int songId) throws SQLException {
+        int numberOfRecordsUpdated = 0;
+        try {
+            Connection connection = ConnectionUtil.getConnection();
+            String sql = "UPDATE songs SET artist = ? WHERE id = ?";
+            PreparedStatement pstmt = connection.prepareStatement(sql);
+            pstmt.setString(1, artistName);
+            pstmt.setInt(2, songId);
+
+            numberOfRecordsUpdated = pstmt.executeUpdate();
+        }catch(SQLException e){
+            System.out.println(e.getMessage());
+        }   
+        return numberOfRecordsUpdated == 1;
+    }
 
 }
