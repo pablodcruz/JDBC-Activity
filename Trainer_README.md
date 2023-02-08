@@ -29,7 +29,6 @@ The main goal of the activity is to teach students how to use a DAO pattern to p
 
 ## Evaluation Criteria:
 - Proper implementation of the DAO pattern
-- Proper use of the ConnectionFactory class
 - Proper implementation of CRUD operations
 - Code quality and organization
-- Presentation and demonstration of the demo application
+- Presentation and demonstration of the demo application (optional)
