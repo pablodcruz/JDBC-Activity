@@ -5,6 +5,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.lang.reflect.Method;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -84,57 +85,94 @@ public class JdbcTest {
     }
 
     @Test
-    public void selectSongTest(){
+    public void selectSongTest() throws Exception {
         Song expectedResult = new Song();
+        expectedResult.setId(1);
+        expectedResult.settitle("Let it be");
+        expectedResult.setArtist("Beatles");
+
+        Class jdbcClass = Class.forName("Jdbc");
+        Object jdbcObject = jdbcClass.getDeclaredConstructor().newInstance();
+        Method getSongMethod;
         try {
-            Connection connection = ConnectionUtil.getConnection();
-            String sql = "select * from songs where id = 1;";
-            PreparedStatement ps = connection.prepareStatement(sql);
-            ResultSet rs = ps.executeQuery();
-            if(rs.next()){
-                expectedResult = new Song(rs.getString(1), rs.getString(2));
-                Song actualResult = jdbc.getSong(1);
-                Assert.assertEquals(expectedResult,actualResult);
-            } 
-        }catch (SQLException sqlException){
-            sqlException.printStackTrace();
+            getSongMethod = jdbcClass.getDeclaredMethod("getSong", int.class);
+        } catch (NoSuchMethodException e) {
+            Assert.fail("getSong method not found in Jdbc.java");
+            return;
         }
-    }
-    @Test
-    public void deleteSongTest(){
-        int expectedResult = 1; //affected rows
-        int actualResult = jdbc.deleteSong(1);
-        System.out.println(jdbc.getAllSongs());
-        Assert.assertEquals(expectedResult,actualResult);
+        getSongMethod.setAccessible(true);
+        try {
+            Song actualResult = (Song) getSongMethod.invoke(jdbcObject, 1);
+            Assert.assertEquals(expectedResult, actualResult);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     @Test
-    public void updateSongTest(){
-        boolean expectedResult = true; 
+    public void deleteSongTest() throws Exception {
+        int expectedResult = 1; //affected rows
+        Class jdbcClass = Class.forName("Jdbc");
+        Object jdbcObject = jdbcClass.getDeclaredConstructor().newInstance();
+        Method deleteSongMethod;
+        try {
+            deleteSongMethod = jdbcClass.getDeclaredMethod("deleteSong", int.class);
+        } catch (NoSuchMethodException e) {
+            Assert.fail("deleteSong method not found in Jdbc.java");
+            return;
+        }
+        deleteSongMethod.setAccessible(true);
+        int actualResult = (int)deleteSongMethod.invoke(jdbcObject, 1);
+        System.out.println(jdbc.getAllSongs());
+        Assert.assertEquals(expectedResult, actualResult);
+    }
+    
+    @Test
+    public void updateSongTest() throws Exception {
+        boolean expectedResult = true;
         boolean actualResult = false;
         Song song = new Song("Led Zeppelin", "Stairway to Heaven");
+        Class jdbcClass = Class.forName("Jdbc");
+        Object jdbcObject = jdbcClass.getDeclaredConstructor().newInstance();
+        Method updateSongMethod;
         try {
-             actualResult = jdbc.updateSong(song, 1);
-
+            updateSongMethod = jdbcClass.getDeclaredMethod("updateSong", Song.class, int.class);
+        } catch (NoSuchMethodException e) {
+            Assert.fail("updateSong method not found in Jdbc.java");
+            return;
+        }
+        updateSongMethod.setAccessible(true);
+        try {
+            actualResult = (boolean) updateSongMethod.invoke(jdbcObject, song, 1);
         } catch (Exception e) {
-            System.out.println(e.getMessage());        
+            System.out.println(e.getMessage());
         }
         System.out.println(jdbc.getAllSongs());
-        Assert.assertEquals(expectedResult,actualResult);
+        Assert.assertEquals(expectedResult, actualResult);
     }
 
+
     @Test
-    public void updateSongArtistTest(){
-        boolean expectedResult = true; 
+    public void updateSongArtistTest() throws Exception {
+        Class jdbcClass = Class.forName("Jdbc");
+        Object jdbcObject = jdbcClass.getDeclaredConstructor().newInstance();
+        Method updateSongArtistMethod;
+        try {
+            updateSongArtistMethod = jdbcClass.getDeclaredMethod("updateSongArtist", String.class, int.class);
+        } catch (NoSuchMethodException e) {
+            Assert.fail("updateSongArtist method not found in Jdbc.java");
+            return;
+        }
+        updateSongArtistMethod.setAccessible(true);
+    
+        boolean expectedResult = true;
         boolean actualResult = false;
         try {
-             actualResult = jdbc.updateSongArtist("MJ",
-              1);
-
+            actualResult = (boolean) updateSongArtistMethod.invoke(jdbcObject, "MJ", 1);
         } catch (Exception e) {
-            System.out.println(e.getMessage());        
+            System.out.println(e.getMessage());
         }
         System.out.println(jdbc.getAllSongs());
-        Assert.assertEquals(expectedResult,actualResult);
+        Assert.assertEquals(expectedResult, actualResult);
     }
 }

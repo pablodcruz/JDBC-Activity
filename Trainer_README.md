@@ -11,12 +11,13 @@ The main goal of the activity is to teach students how to use a DAO pattern to p
 2. Run tests on VSCode or Intellij (click test runner and run on VSCode, open test/java/JdbcTest and run on Intellij)
 
 ## Instructions:
+0. Trainer should shallow clone repo  https://github.com/pablodcruz/JDBC-Activity -> delete solution branch
 1. Divide the class into groups of 2-3 students.
-2. Have each group fork the activy repo -> open locally -> follow instrustions in Jdbc.java
+2. Have each group fork your activity repo -> open locally -> follow instrustions in Jdbc.java
 3. Tell students how many tests out of the total they should complete with the time you provide (I recommend 2 per 60min)
 4. Give the groups time to work on the activity and provide assistance as needed.
 5. Once the groups have completed the activity, rank them by time and accuracy.
-6. Demo/Explain any concept the class struggled with. 
+6. Demo/Explain any concept the class struggled with. (check solution branch for answers)
 7. Finally, provide a summary of the main takeaways from the activity and how the DAO pattern can be used in real-world applications.
 
 ## Note:
@@ -28,7 +29,6 @@ The main goal of the activity is to teach students how to use a DAO pattern to p
 
 ## Evaluation Criteria:
 - Proper implementation of the DAO pattern
-- Proper use of the ConnectionFactory class
 - Proper implementation of CRUD operations
 - Code quality and organization
-- Presentation and demonstration of the demo application
+- Presentation and demonstration of the demo application (optional)
