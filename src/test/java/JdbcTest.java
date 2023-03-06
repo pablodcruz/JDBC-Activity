@@ -92,7 +92,7 @@ public class JdbcTest {
             PreparedStatement ps = connection.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             if(rs.next()){
-                expectedResult = new Song(rs.getString(1), rs.getString(2));
+                expectedResult = new Song(rs.getInt(1), rs.getString(2), rs.getString(3));
                 Song actualResult = jdbc.getSong(1);
                 Assert.assertEquals(expectedResult,actualResult);
             } 

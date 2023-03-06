@@ -1,5 +1,3 @@
-
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -41,14 +39,14 @@ import util.ConnectionUtil;
 
 public class Jdbc {
 
-    //write JDBC logic to create a new song in our songs table
+    //1. write JDBC logic to create a new song in our songs table
     public void createSong(Song song)  {
         try {
             //retrieve active connection to db
             Connection connection = ConnectionUtil.getConnection();
             //SQL statement we are going to execute, we use ? as placeholders we later set.
             
-        // 1. write SQL statement here
+            //1. write SQL statement here
             String sql = "change me";
 
             //create PrepareStatement object (better than Statement object)
@@ -64,13 +62,13 @@ public class Jdbc {
         }
     }
 
-    //write SQL logic to retrieve all songs from songs table
+    //2. write SQL logic to retrieve all songs from songs table
     public List<Song> getAllSongs(){
         List<Song> songs = new ArrayList<>();
         try{
         Connection connection = ConnectionUtil.getConnection();
                 
-    //2. write SQL statement here
+        //2. write SQL statement here
         String sql = "change me";
 
         Statement statement = connection.createStatement();
@@ -78,19 +76,29 @@ public class Jdbc {
         while(rs.next()){
                 songs.add(new Song(rs.getString(1), rs.getString(2)));
             }
-            //NOTE: in the above statement, rs.getString(1) is retrieving column 1 as a string from a record. in our situation, that will get the firstname. Since lastname is in the second column in the table, we retrieve that value by using rs.getString(2);
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return songs;
     }
 
-    //3. create a method  'getSong' with the JDBC logic to retrieve a song from songs table using the song id
+    //3. create a method that with the JDBC logic to retrieve a song from songs table using the song id
+    public Song getSong(int id){
+        return null;
+    }
 
-    //4. create a method 'deleteSong' with the JDBC logic to delete a song, return the number of affected rows 
+    //4. create a method that with the JDBC logic to delete a songs, return the number of affected rows 
+    public int deleteSong(int id) {
+        return 0;
+    }
 
-    //5. create a method 'updateSong' with the JDBC logic to update an entire songs, return true if successful.  
+    //5. create a method that with the JDBC logic to update an entire songs, return true if successful  
+    public boolean updateSong(Song song, int id) throws SQLException {
+        return false;       
+    }
 
-    //6. create a method 'updateSongArtist' with the JDBC logic to update a songs artist 
-
+    //6. create a method that with the JDBC logic to update a songs artist, return true if successful
+    public boolean updateSongArtist(String artistName, int songId) throws SQLException {
+       return false;
+    }
 }
